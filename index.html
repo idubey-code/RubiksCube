@@ -1,100 +1,15 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="CSS/main.css">
-     <script type="importmap">
+    <link rel="stylesheet" href="./CSS/main.css">
+    <script type="importmap">
       {
         "imports": {
-          "three": "https://threejs.org/build/three.module.js",
-          "script/": "./JS/"
+          "three": "https://threejs.org/build/three.module.js"
         }
       }
     </script>
-    <script type = "module">
-
-      import * as THREE from 'three';
-      import { TrackballControls } from 'https://threejs.org/examples/jsm/controls/TrackballControls.js';
-      import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
-      import { Line2 } from 'script/Line2.js';
-      import { LineMaterial } from 'script/LineMaterial.js';
-      import { LineGeometry } from 'script/LineGeometry.js';
-      import { LineSegments2 } from 'script/LineSegments2.js';
-      import { LineSegmentsGeometry } from 'script/LineSegmentsGeometry.js';
-
-      var scene, camera, renderer, ambientLight, light, controls, matLine;
-
-      window.onload = function() {
-
-        scene = new THREE.Scene();
-
-        var fov = 75;
-        var ratio = window.innerWidth / window.innerHeight;
-        var zNear = 1;
-        var zFar = 10000;
-        camera = new THREE.PerspectiveCamera(fov, ratio, zNear, zFar);
-        camera.position.set( 0, 0, 100);
-
-        renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        document.body.appendChild( renderer.domElement );
-
-        ambientLight = new THREE.AmbientLight();
-        scene.add( ambientLight );
-
-        light = new THREE.DirectionalLight( 0xffffff, 5.0 );
-        light.position.set( 10, 100, 10 );
-        scene.add( light );
-
-        controls = new OrbitControls( camera, renderer.domElement );
-
-        var geom = new THREE.BoxGeometry( 10, 10, 10 ).toNonIndexed(); 
-
-        var material = new THREE.MeshBasicMaterial( { color: "red", 
-                                                      polygonOffset: true, 
-                                                      polygonOffsetFactor: 1, 
-                                                      polygonOffsetUnits: 1} );
-
-        var mesh = new THREE.Mesh( geom, material );
-        scene.add( mesh );
-
-        const edges = new THREE.EdgesGeometry( geom );
-
-        // var mat = new THREE.LineBasicMaterial( { color: 0x000000, 
-        //                                          linewidth: 1, 
-        //                                          linecap: 'round', 
-        //                                          linejoin: 'round' } );
-        // var wireframe = new THREE.LineSegments( edges, mat );
-
-        // scene.add(wireframe);
-
-        const geometry = new LineSegmentsGeometry().fromEdgesGeometry( edges );
-
-        matLine = new LineMaterial( {
-
-          color: 0xffffff,
-          linewidth: 2,
-
-        } );
-
-        var line = new Line2( geometry, matLine );
-        line.computeLineDistances();
-        line.scale.set( 1, 1, 1 );
-        scene.add( line );
-
-        animate();
-
-      };
-
-      function animate() {
-
-        requestAnimationFrame( animate );
-        controls.update();
-        matLine.resolution.set( window.innerWidth, window.innerHeight );
-        renderer.render( scene, camera );
-
-      };
-
-    </script>
+    <script type="module" src="./JS/main.js"></script>
   </head>
   <body></body>
 </html>
