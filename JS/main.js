@@ -7,8 +7,14 @@ import { LineGeometry } from '/JS/modules/LineGeometry.js';
 import { LineSegments2 } from '/JS/modules/LineSegments2.js';
 import { LineSegmentsGeometry } from '/JS/modules/LineSegmentsGeometry.js';
 
- var scene, camera, renderer, ambientLight, light, controls;
+ var scene, camera, renderer, ambientLight, light, controls, topSide,pivot;
  var lineMats = [];
+ var topLayer = [];
+ var middleLayer = [];
+ var bottomLayer = [];
+ var leftLayer = [];
+ var middleVerticalLayer = [];
+ var rightLayer = [];
 
  function getCube(colorPallete){
 
@@ -71,7 +77,7 @@ window.onload = function() {
 	camera = new THREE.PerspectiveCamera(fov, ratio, zNear, zFar);
 	camera.position.set( -90, 70, 100);
 
-	renderer = new THREE.WebGLRenderer({ alpha: true });
+	renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
 
@@ -102,6 +108,8 @@ window.onload = function() {
 	lineMats.push(lMat1);
 	C1.position.set(-11,0,0);
 	L1.position.set(-11,0,0);
+	topLayer.push(C1);
+	topLayer.push(L1);
 	scene.add( C1 );
 	scene.add( L1 );
 
@@ -110,6 +118,8 @@ window.onload = function() {
 	lineMats.push(lMat2);
 	C2.position.set(0,0,0);
 	L2.position.set(0,0,0);
+	topLayer.push(C2);
+	topLayer.push(L2);
 	scene.add( C2 );
 	scene.add( L2 );
 
@@ -118,6 +128,8 @@ window.onload = function() {
 	lineMats.push(lMat3);
 	C3.position.set(11,0,0);
 	L3.position.set(11,0,0);
+	topLayer.push(C3);
+	topLayer.push(L3);
 	scene.add( C3 );
 	scene.add( L3 );
 
@@ -184,6 +196,8 @@ window.onload = function() {
 	lineMats.push(lMat10);
 	C10.position.set(-11,0,-11);
 	L10.position.set(-11,0,-11);
+	topLayer.push(C10);
+	topLayer.push(L10);
 	scene.add( C10 );
 	scene.add( L10 );
 
@@ -192,6 +206,8 @@ window.onload = function() {
 	lineMats.push(lMat11);
 	C11.position.set(0,0,-11);
 	L11.position.set(0,0,-11);
+	topLayer.push(C11);
+	topLayer.push(L11);
 	scene.add( C11 );
 	scene.add( L11 );
 
@@ -200,6 +216,8 @@ window.onload = function() {
 	lineMats.push(lMat12);
 	C12.position.set(11,0,-11);
 	L12.position.set(11,0,-11);
+	topLayer.push(C12);
+	topLayer.push(L12);
 	scene.add( C12 );
 	scene.add( L12 );
 
@@ -266,6 +284,8 @@ window.onload = function() {
 	lineMats.push(lMat19);
 	C19.position.set(-11,0,-22);
 	L19.position.set(-11,0,-22);
+	topLayer.push(C19);
+	topLayer.push(L19);
 	scene.add( C19 );
 	scene.add( L19 );
 
@@ -274,6 +294,8 @@ window.onload = function() {
 	lineMats.push(lMat20);
 	C20.position.set(0,0,-22);
 	L20.position.set(0,0,-22);
+	topLayer.push(C20);
+	topLayer.push(L20);
 	scene.add( C20 );
 	scene.add( L20 );
 
@@ -282,6 +304,8 @@ window.onload = function() {
 	lineMats.push(lMat21);
 	C21.position.set(11,0,-22);
 	L21.position.set(11,0,-22);
+	topLayer.push(C21);
+	topLayer.push(L21);
 	scene.add( C21 );
 	scene.add( L21 );
 
@@ -338,6 +362,47 @@ window.onload = function() {
 	scene.add( L27 );
 
 	//----------------------------------------EO Back Layer-------------------------------------------------
+
+	topSide = new THREE.Object3D();
+		for (var i = 0; i < topLayer.length; i++) {
+			topSide.add(topLayer[i]);
+		}
+
+	scene.add(topSide);
+
+	var rot = 0;
+
+	renderer.domElement.onclick = function(e){
+
+			rot += 1.57;
+
+			if (rot < 6.28) {
+
+				topSide.rotation.y += rot;
+
+				if (rot === 1.57) {
+					topSide.position.set(11,0,-11);
+				}
+
+				if (rot === 3.14) {
+					topSide.position.set(-11,0,-11);
+				}
+
+				if (rot === 4.71) {
+					topSide.position.set(0,0,-22);
+				}
+
+			}
+
+			else {
+
+				topSide.rotation.y -= (6.28 - 3.14);
+				topSide.position.set(0,0,0);
+				rot = 0;
+			}
+
+		};
+
 
 	animate();
 
