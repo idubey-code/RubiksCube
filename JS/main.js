@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import { TrackballControls } from 'https://threejs.org/examples/jsm/controls/TrackballControls.js';
 import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
-import { Line2 } from '/../JS/modules/Line2.js';
-import { LineMaterial } from '/../JS/modules/LineMaterial.js';
-import { LineGeometry } from '/../JS/modules/LineGeometry.js';
-import { LineSegments2 } from '/../JS/modules/LineSegments2.js';
-import { LineSegmentsGeometry } from '/../JS/modules/LineSegmentsGeometry.js';
+import { Line2 } from './modules/Line2.js';
+import { LineMaterial } from './modules/LineMaterial.js';
+import { LineGeometry } from './modules/LineGeometry.js';
+import { LineSegments2 } from './modules/LineSegments2.js';
+import { LineSegmentsGeometry } from './modules/LineSegmentsGeometry.js';
 
  var scene, camera, renderer, ambientLight, light, controls, topSide,pivot;
  var lineMats = [];
