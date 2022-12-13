@@ -7,14 +7,14 @@ import { LineGeometry } from './modules/LineGeometry.js';
 import { LineSegments2 } from './modules/LineSegments2.js';
 import { LineSegmentsGeometry } from './modules/LineSegmentsGeometry.js';
 
- var scene, camera, renderer, ambientLight, light, controls, topSide,pivot;
- var lineMats = [];
- var topLayer = [];
- var middleLayer = [];
- var bottomLayer = [];
- var leftLayer = [];
- var middleVerticalLayer = [];
- var rightLayer = [];
+var scene, camera, renderer, ambientLight, light, controls, topSide,pivot;
+var lineMats = [];
+var topLayer = [];
+var middleLayer = [];
+var bottomLayer = [];
+var leftLayer = [];
+var middleVerticalLayer = [];
+var rightLayer = [];
 
  function getCube(colorPallete){
 
@@ -370,39 +370,32 @@ window.onload = function() {
 
 	scene.add(topSide);
 
-	var rot = 0;
+	var rotFactor = 0;
 
 	renderer.domElement.onclick = function(e){
 
-			rot += 1.57;
+		rotFactor += 1;
 
-			if (rot < 6.28) {
+		topSide.rotation.y += Math.PI/2;
 
-				topSide.rotation.y += rot;
+		if (rotFactor === 1) {
+			topSide.position.set(11,0,-11);
+		}
+			
+		if (rotFactor === 2) {
+			topSide.position.set(0,0,-22);
+		}
 
-				if (rot === 1.57) {
-					topSide.position.set(11,0,-11);
-				}
+		if (rotFactor === 3) {
+			topSide.position.set(-11,0,-11);
+		}
 
-				if (rot === 3.14) {
-					topSide.position.set(-11,0,-11);
-				}
+		if (rotFactor === 4) {
+			topSide.position.set(0,0,0);
+			rotFactor = 0;
+		}
 
-				if (rot === 4.71) {
-					topSide.position.set(0,0,-22);
-				}
-
-			}
-
-			else {
-
-				topSide.rotation.y -= (6.28 - 3.14);
-				topSide.position.set(0,0,0);
-				rot = 0;
-			}
-
-		};
-
+	};
 
 	animate();
 
