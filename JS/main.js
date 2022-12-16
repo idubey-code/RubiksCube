@@ -7,20 +7,15 @@ import { LineGeometry } from './modules/LineGeometry.js';
 import { LineSegments2 } from './modules/LineSegments2.js';
 import { LineSegmentsGeometry } from './modules/LineSegmentsGeometry.js';
 
-var scene, camera, renderer, ambientLight, light, controls, topSide,pivot;
-var lineMats = [];
-var topLayer = [];
-var middleLayer = [];
-var bottomLayer = [];
-var leftLayer = [];
-var middleVerticalLayer = [];
-var rightLayer = [];
+var scene, camera, renderer, ambientLight, light, controls, rotations;
+var [lineMats, topLayer, bottomLayer, leftLayer, rightLayer, frontLayer, backLayer] = 
+															Array.from({ length: 7 }, () => []);
 
- function getCube(colorPallete){
+function getCube(colorPallete){
 
  	var geometry = new THREE.BoxGeometry( 10, 10, 10 ).toNonIndexed(); 
 
-	var material = new THREE.MeshLambertMaterial( { vertexColors: true, 
+	var material = new THREE.MeshBasicMaterial( { vertexColors: true, 
 	                                              polygonOffset: true, 
 	                                              polygonOffsetFactor: 1, 
 	                                              polygonOffsetUnits: 1} );
@@ -63,6 +58,246 @@ var rightLayer = [];
 	line.scale.set( 1, 1, 1 );
 
 	return [mesh, lineMat, line];
+
+};
+
+var u = function rotU(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.y -= Math.PI/2;
+
+	var rotFactor = layerObject.rotation.y;
+	layerObject.position.set(-11,0,-11);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var uDash = function rotUDash(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.y += Math.PI/2;
+	layerObject.position.set(11,0,-11);
+
+	// var rotFactor = layerObject.rotation.y;
+
+	// if (rotFactor === Math.PI/2) {
+	// 	layerObject.position.set(11,0,-11);
+	// }
+		
+	// if (rotFactor === Math.PI) {
+	// 	layerObject.position.set(0,0,-22);
+	// 	console.log(layerObject.rotation);
+	// }
+
+	// if (rotFactor === 3*(Math.PI/2)) {
+	// 	layerObject.position.set(-11,0,-11);
+	// 	console.log(layerObject.rotation);
+	// }
+
+	// if (rotFactor === 2*(Math.PI)) {
+	// 	layerObject.position.set(0,0,0);
+	// 	layerObject.rotation.y = 0;
+	// 	console.log(layerObject.rotation);
+	// }
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var d = function rotD(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.y += Math.PI/2;
+	layerObject.position.set(11,0,-11);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var dDash = function rotDDash(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.y -= Math.PI/2;
+	layerObject.position.set(-11,0,-11);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var l = function rotL(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.x += Math.PI/2;
+	layerObject.position.set(0,-22,0);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var lDash = function rotLDash(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.x -= Math.PI/2;
+	layerObject.position.set(0,0,-22);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var r = function rotR(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.x -= Math.PI/2;
+	layerObject.position.set(0,0,-22);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var rDash = function rotRDash(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.x += Math.PI/2;
+	layerObject.position.set(0,-22,0);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var f = function rotF(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.z -= Math.PI/2;
+	layerObject.position.set(11,-11,0);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var fDash = function rotFDash(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.z += Math.PI/2;
+	layerObject.position.set(-11,-11,0);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var b = function rotB(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.z += Math.PI/2;
+	layerObject.position.set(-11,-11,0);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
+
+};
+
+var bDash = function rotBDash(scene,layer){
+
+	var layerObject = new THREE.Object3D();
+	for (var i = 0; i < layer.length; i++) {
+		layerObject.attach(layer[i]);
+	}
+
+	scene.attach(layerObject);
+
+	layerObject.rotation.z -= Math.PI/2;
+	layerObject.position.set(11,-11,0);
+
+	for (var i = 0; i < layer.length; i++) {
+		scene.attach(layer[i]);
+	}
 
 };
 
@@ -110,6 +345,10 @@ window.onload = function() {
 	L1.position.set(-11,0,0);
 	topLayer.push(C1);
 	topLayer.push(L1);
+	leftLayer.push(C1);
+	leftLayer.push(L1);
+	frontLayer.push(C1);
+	frontLayer.push(L1);
 	scene.add( C1 );
 	scene.add( L1 );
 
@@ -120,6 +359,8 @@ window.onload = function() {
 	L2.position.set(0,0,0);
 	topLayer.push(C2);
 	topLayer.push(L2);
+	frontLayer.push(C2);
+	frontLayer.push(L2);
 	scene.add( C2 );
 	scene.add( L2 );
 
@@ -130,6 +371,10 @@ window.onload = function() {
 	L3.position.set(11,0,0);
 	topLayer.push(C3);
 	topLayer.push(L3);
+	rightLayer.push(C3);
+	rightLayer.push(L3);
+	frontLayer.push(C3);
+	frontLayer.push(L3);
 	scene.add( C3 );
 	scene.add( L3 );
 
@@ -140,6 +385,10 @@ window.onload = function() {
 	lineMats.push(lMat4);
 	C4.position.set(-11,-11,0);
 	L4.position.set(-11,-11,0);
+	leftLayer.push(C4);
+	leftLayer.push(L4);
+	frontLayer.push(C4);
+	frontLayer.push(L4);
 	scene.add( C4 );
 	scene.add( L4 );
 
@@ -148,6 +397,8 @@ window.onload = function() {
 	lineMats.push(lMat5);
 	C5.position.set(0,-11,0);
 	L5.position.set(0,-11,0);
+	frontLayer.push(C5);
+	frontLayer.push(L5);
 	scene.add( C5 );
 	scene.add( L5 );
 
@@ -156,6 +407,10 @@ window.onload = function() {
 	lineMats.push(lMat6);
 	C6.position.set(11,-11,0);
 	L6.position.set(11,-11,0);
+	rightLayer.push(C6);
+	rightLayer.push(L6);
+	frontLayer.push(C6);
+	frontLayer.push(L6);
 	scene.add( C6 );
 	scene.add( L6 );
 
@@ -166,6 +421,12 @@ window.onload = function() {
 	lineMats.push(lMat7);
 	C7.position.set(-11,-22,0);
 	L7.position.set(-11,-22,0);
+	bottomLayer.push(C7);
+	bottomLayer.push(L7);
+	leftLayer.push(C7);
+	leftLayer.push(L7);
+	frontLayer.push(C7);
+	frontLayer.push(L7);
 	scene.add( C7 );
 	scene.add( L7 );
 
@@ -174,6 +435,10 @@ window.onload = function() {
 	lineMats.push(lMat8);
 	C8.position.set(0,-22,0);
 	L8.position.set(0,-22,0);
+	bottomLayer.push(C8);
+	bottomLayer.push(L8);
+	frontLayer.push(C8);
+	frontLayer.push(L8);
 	scene.add( C8 );
 	scene.add( L8 );
 
@@ -182,6 +447,12 @@ window.onload = function() {
 	lineMats.push(lMat9);
 	C9.position.set(11,-22,0);
 	L9.position.set(11,-22,0);
+	bottomLayer.push(C9);
+	bottomLayer.push(L9);
+	rightLayer.push(C9);
+	rightLayer.push(L9);
+	frontLayer.push(C9);
+	frontLayer.push(L9);
 	scene.add( C9 );
 	scene.add( L9 );
 
@@ -198,6 +469,8 @@ window.onload = function() {
 	L10.position.set(-11,0,-11);
 	topLayer.push(C10);
 	topLayer.push(L10);
+	leftLayer.push(C10);
+	leftLayer.push(L10);
 	scene.add( C10 );
 	scene.add( L10 );
 
@@ -218,6 +491,8 @@ window.onload = function() {
 	L12.position.set(11,0,-11);
 	topLayer.push(C12);
 	topLayer.push(L12);
+	rightLayer.push(C12);
+	rightLayer.push(L12);
 	scene.add( C12 );
 	scene.add( L12 );
 
@@ -228,6 +503,8 @@ window.onload = function() {
 	lineMats.push(lMat13);
 	C13.position.set(-11,-11,-11);
 	L13.position.set(-11,-11,-11);
+	leftLayer.push(C13);
+	leftLayer.push(L13);
 	scene.add( C13 );
 	scene.add( L13 );
 
@@ -244,6 +521,8 @@ window.onload = function() {
 	lineMats.push(lMat15);
 	C15.position.set(11,-11,-11);
 	L15.position.set(11,-11,-11);
+	rightLayer.push(C15);
+	rightLayer.push(L15);
 	scene.add( C15 );
 	scene.add( L15 );
 
@@ -254,6 +533,10 @@ window.onload = function() {
 	lineMats.push(lMat16);
 	C16.position.set(-11,-22,-11);
 	L16.position.set(-11,-22,-11);
+	bottomLayer.push(C16);
+	bottomLayer.push(L16);
+	leftLayer.push(C16);
+	leftLayer.push(L16);
 	scene.add( C16 );
 	scene.add( L16 );
 
@@ -262,6 +545,8 @@ window.onload = function() {
 	lineMats.push(lMat17);
 	C17.position.set(0,-22,-11);
 	L17.position.set(0,-22,-11);
+	bottomLayer.push(C17);
+	bottomLayer.push(L17);
 	scene.add( C17 );
 	scene.add( L17 );
 
@@ -270,6 +555,10 @@ window.onload = function() {
 	lineMats.push(lMat18);
 	C18.position.set(11,-22,-11);
 	L18.position.set(11,-22,-11);
+	bottomLayer.push(C18);
+	bottomLayer.push(L18);
+	rightLayer.push(C18);
+	rightLayer.push(L18);
 	scene.add( C18 );
 	scene.add( L18 );
 
@@ -286,6 +575,10 @@ window.onload = function() {
 	L19.position.set(-11,0,-22);
 	topLayer.push(C19);
 	topLayer.push(L19);
+	leftLayer.push(C19);
+	leftLayer.push(L19);
+	backLayer.push(C19);
+	backLayer.push(L19);
 	scene.add( C19 );
 	scene.add( L19 );
 
@@ -296,6 +589,8 @@ window.onload = function() {
 	L20.position.set(0,0,-22);
 	topLayer.push(C20);
 	topLayer.push(L20);
+	backLayer.push(C20);
+	backLayer.push(L20);
 	scene.add( C20 );
 	scene.add( L20 );
 
@@ -306,6 +601,10 @@ window.onload = function() {
 	L21.position.set(11,0,-22);
 	topLayer.push(C21);
 	topLayer.push(L21);
+	rightLayer.push(C21);
+	rightLayer.push(L21);
+	backLayer.push(C21);
+	backLayer.push(L21);
 	scene.add( C21 );
 	scene.add( L21 );
 
@@ -316,6 +615,10 @@ window.onload = function() {
 	lineMats.push(lMat22);
 	C22.position.set(-11,-11,-22);
 	L22.position.set(-11,-11,-22);
+	leftLayer.push(C22);
+	leftLayer.push(L22);
+	backLayer.push(C22);
+	backLayer.push(L22);
 	scene.add( C22 );
 	scene.add( L22 );
 
@@ -324,6 +627,8 @@ window.onload = function() {
 	lineMats.push(lMat23);
 	C23.position.set(0,-11,-22);
 	L23.position.set(0,-11,-22);
+	backLayer.push(C23);
+	backLayer.push(L23);
 	scene.add( C23 );
 	scene.add( L23 );
 
@@ -332,6 +637,10 @@ window.onload = function() {
 	lineMats.push(lMat24);
 	C24.position.set(11,-11,-22);
 	L24.position.set(11,-11,-22);
+	rightLayer.push(C24);
+	rightLayer.push(L24);
+	backLayer.push(C24);
+	backLayer.push(L24);
 	scene.add( C24 );
 	scene.add( L24 );
 
@@ -342,6 +651,12 @@ window.onload = function() {
 	lineMats.push(lMat25);
 	C25.position.set(-11,-22,-22);
 	L25.position.set(-11,-22,-22);
+	bottomLayer.push(C25);
+	bottomLayer.push(L25);
+	leftLayer.push(C25);
+	leftLayer.push(L25);
+	backLayer.push(C25);
+	backLayer.push(L25);
 	scene.add( C25 );
 	scene.add( L25 );
 
@@ -350,6 +665,10 @@ window.onload = function() {
 	lineMats.push(lMat26);
 	C26.position.set(0,-22,-22);
 	L26.position.set(0,-22,-22);
+	bottomLayer.push(C26);
+	bottomLayer.push(L26);
+	backLayer.push(C26);
+	backLayer.push(L26);
 	scene.add( C26 );
 	scene.add( L26 );
 
@@ -358,42 +677,58 @@ window.onload = function() {
 	lineMats.push(lMat27);
 	C27.position.set(11,-22,-22);
 	L27.position.set(11,-22,-22);
+	bottomLayer.push(C27);
+	bottomLayer.push(L27);
+	rightLayer.push(C27);
+	rightLayer.push(L27);
+	backLayer.push(C27);
+	backLayer.push(L27);
 	scene.add( C27 );
 	scene.add( L27 );
 
 	//----------------------------------------EO Back Layer-------------------------------------------------
 
-	topSide = new THREE.Object3D();
-		for (var i = 0; i < topLayer.length; i++) {
-			topSide.add(topLayer[i]);
-		}
+	//-------------------------------------------Rotations--------------------------------------------------
 
-	scene.add(topSide);
+	rotations = {"U": u, "U'": uDash, "D": d, "D'": dDash, "L": l, "L'": lDash,
+				 "R": r, "R'": rDash, "F": f, "F'": fDash, "B": b, "B'": bDash};	
 
-	var rotFactor = 0;
+	renderer.domElement.onclick = function(){
 
-	renderer.domElement.onclick = function(e){
+		setTimeout(function() {
+		  rotations["U"](scene,topLayer);
+		}, 500);
 
-		rotFactor += 1;
+		setTimeout(function() {
+		  rotations["D"](scene,bottomLayer);
+		}, 500);
 
-		topSide.rotation.y += Math.PI/2;
+		// setTimeout(function() {
+		//   rotations["L"](scene,leftLayer);
+		// }, 500);
 
-		if (rotFactor === 1) {
-			topSide.position.set(11,0,-11);
-		}
+		// for (var rot in rotations) {
 			
-		if (rotFactor === 2) {
-			topSide.position.set(0,0,-22);
-		}
+		// 	if (rot === "U"){
+		// 		rotations[rot](scene,topLayer);
+		// 	}
+		// 	if (rot === "D"){
+		// 		rotations[rot](scene,bottomLayer);
+		// 	}
+		// 	if (rot === "L"){
+		// 		rotations[rot](scene,leftLayer);
+		// 	}
+		// 	if (rot === "R"){
+		// 		rotations[rot](scene,rightLayer);
+		// 	}
+		// 	if (rot === "F"){
+		// 		rotations[rot](scene,frontLayer);
+		// 	}
+		// 	if (rot === "B"){
+		// 		rotations[rot](scene,backLayer);
+		// 	}
 
-		if (rotFactor === 3) {
-			topSide.position.set(-11,0,-11);
-		}
-
-		if (rotFactor === 4) {
-			topSide.position.set(0,0,0);
-			rotFactor = 0;
-		}
+		// }
 
 	};
 
