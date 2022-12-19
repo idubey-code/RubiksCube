@@ -8,7 +8,6 @@ import { LineSegments2 } from './modules/LineSegments2.js';
 import { LineSegmentsGeometry } from './modules/LineSegmentsGeometry.js';
 
 var scene, camera, renderer, ambientLight, light, controls, rotations, rotMap;
-var solve = true;
 var [lineMats, allCubes, shuffleList, rotHist] = Array.from({ length: 4 }, () => []);
 // var [lineMats, topLayer, bottomLayer, leftLayer, rightLayer, frontLayer, backLayer] = 
 // 															Array.from({ length: 7 }, () => []);
@@ -446,23 +445,18 @@ function shuffle(shuffleList){
 		}, 100*(i+1));
 	}
 
-	solve = false;
-
 };
 
 function autoSolve(){
 
-	if (rotHist.length > 0 && !solve) {
+	if (rotHist.length > 0) {
 
 		for (let i = rotHist.length - 1; i >= 0; i--){
 			setTimeout(function() {
 				rotations[rotMap[rotHist[i]]](scene,allCubes);
 			}, 100 * (Math.abs(i - rotHist.length) + 1));
 		}
-
 	}
-
-	solve = true;
 
 };
 
@@ -810,14 +804,37 @@ window.onload = function() {
 
 	rotMap = {"U": "U'", "U'": "U", "D": "D'", "D'": "D", "L": "L'", "L'": "L",
 			  "R": "R'", "R'": "R", "F": "F'", "F'": "F", "B": "B'", "B'": "B"};
+
+	document.getElementById("U").onclick = function(){ rotations["U"](scene,allCubes);};
+
+	document.getElementById("U1").onclick = function(){ rotations["U'"](scene,allCubes);};
+
+	document.getElementById("D").onclick = function(){ rotations["D"](scene,allCubes);};
+
+	document.getElementById("D1").onclick = function(){ rotations["D'"](scene,allCubes);};
+
+	document.getElementById("L").onclick = function(){ rotations["L"](scene,allCubes);};
+
+	document.getElementById("L1").onclick = function(){ rotations["L'"](scene,allCubes);};
+
+	document.getElementById("R").onclick = function(){ rotations["R"](scene,allCubes);};
+
+	document.getElementById("R1").onclick = function(){ rotations["R'"](scene,allCubes);};
+
+	document.getElementById("F").onclick = function(){ rotations["F"](scene,allCubes);};
+
+	document.getElementById("F1").onclick = function(){ rotations["F'"](scene,allCubes);};
+
+	document.getElementById("B").onclick = function(){ rotations["B"](scene,allCubes);};
+
+	document.getElementById("B1").onclick = function(){ rotations["B'"](scene,allCubes);};
 		
+	document.getElementById("btn1").onclick = function(){ shuffle(shuffleList);};
 
-	renderer.domElement.onclick = function(){ shuffle(shuffleList);};
+	document.getElementById("btn2").onclick = function(){ autoSolve();};
 
-	document.onkeydown = function(e){
-		if (e.keyCode === 32) {
-			autoSolve();
-		} 
+	document.getElementById("btn3").onclick = function(){
+		window.open("https://rubiks.com/en-US/solve-it","_blank");
 	};
 
 	//-------------------------------------------Animations--------------------------------------------------

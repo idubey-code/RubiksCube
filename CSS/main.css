@@ -1,13 +1,32 @@
 html, body {
 
         background-color:#C5C5C5;
-        margin: 0;
-        padding: 0;
         height: 100%;
         overflow: hidden !important;
-
-        /*background-image: url("../Graphics/BG.jpg");
-        background-repeat: no-repeat;
-        background-size: 100% 100%;*/
           
-      }
+}
+
+.sideMenuLeft{
+        width: 220px;
+        height: 240px;
+        margin-top: 250px;
+        position: absolute;
+}
+
+#btn1,#btn2,#btn3{
+        width: 100%;
+        cursor: pointer;
+}
+
+.sideMenuRight{
+        width: 150px;
+        height: 410px;
+        margin-top: 180px;
+        margin-left:1270px;
+        position: absolute;
+}
+
+#U,#U1,#D,#D1,#L,#L1,#R,#R1,#F,#F1,#B,#B1{
+        width: 100%;
+        cursor: pointer;
+}
