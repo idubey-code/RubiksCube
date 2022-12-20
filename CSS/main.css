@@ -6,10 +6,70 @@ html, body {
           
 }
 
+.logoClass{
+        width: 300px;
+        height: auto;
+        margin-left: 0px;
+        margin-top: 12px;
+        position: absolute;
+}
+
+#logo{
+        width: 100%;
+}
+
+.startClass{
+        width: 450px;
+        height: auto;
+        margin-left: 33%;
+        margin-top: 650px;
+        position: absolute;
+        transition: all .75s ease;
+}
+
+.startClass.show{
+        width: 450px;
+        height: auto;
+        margin-left: 33%;
+        margin-top: 1000px;
+        position: absolute;
+}
+
+#start{
+        width: 100%;
+}
+
 .sideMenuLeft{
         width: 220px;
         height: 240px;
         margin-top: 250px;
+        margin-left: -225px;
+        position: absolute;
+        transition: all .75s ease;
+}
+
+.sideMenuLeft.show{
+        width: 220px;
+        height: 240px;
+        margin-top: 250px;
+        margin-left: 0px;
+        position: absolute;
+}
+
+.sideMenuLeftActive{
+        width: 220px;
+        height: 240px;
+        margin-top: 250px;
+        margin-left: -225px;
+        position: absolute;
+        transition: all .75s ease;
+}
+
+.sideMenuLeftActive.show{
+        width: 220px;
+        height: 240px;
+        margin-top: 250px;
+        margin-left: 0px;
         position: absolute;
 }
 
@@ -18,15 +78,63 @@ html, body {
         cursor: pointer;
 }
 
+#btn1:hover,#btn2:hover,#btn3:hover{
+        opacity: 0;
+}
+
+#btn1a,#btn2a,#btn3a{
+        width: 100%;
+        cursor: pointer;
+}
+
 .sideMenuRight{
+        width: 150px;
+        height: 410px;
+        margin-top: 180px;
+        margin-left:1430px;
+        position: absolute;
+        transition: all .75s ease;
+}
+
+.sideMenuRight.show{
         width: 150px;
         height: 410px;
         margin-top: 180px;
         margin-left:1270px;
         position: absolute;
+        transition: all .75s ease;
+}
+
+.sideMenuRightActive{
+        width: 150px;
+        height: 410px;
+        margin-top: 180px;
+        margin-left:1430px;
+        position: absolute;
+        transition: all .75s ease;
+}
+
+.sideMenuRightActive.show{
+        width: 150px;
+        height: 410px;
+        margin-top: 180px;
+        margin-left:1270px;
+        position: absolute;
+        transition: all .75s ease;
 }
 
 #U,#U1,#D,#D1,#L,#L1,#R,#R1,#F,#F1,#B,#B1{
         width: 100%;
         cursor: pointer;
 }
+
+#U:hover,#U1:hover,#D:hover,#D1:hover,#L:hover,#L1:hover,#R:hover,#R1:hover,#F:hover,#F1:hover,#B:hover,#B1:hover{
+        opacity: 0;
+}
+
+#Ua,#U1a,#Da,#D1a,#La,#L1a,#Ra,#R1a,#Fa,#F1a,#Ba,#B1a{
+        width: 100%;
+        cursor: pointer;
+}
+
+

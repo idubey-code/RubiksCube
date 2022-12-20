@@ -8,6 +8,8 @@ import { LineSegments2 } from './modules/LineSegments2.js';
 import { LineSegmentsGeometry } from './modules/LineSegmentsGeometry.js';
 
 var scene, camera, renderer, ambientLight, light, controls, rotations, rotMap;
+var solved = true;
+var shuffleFlag = false;
 var [lineMats, allCubes, shuffleList, rotHist] = Array.from({ length: 4 }, () => []);
 // var [lineMats, topLayer, bottomLayer, leftLayer, rightLayer, frontLayer, backLayer] = 
 // 															Array.from({ length: 7 }, () => []);
@@ -148,7 +150,7 @@ var u = function rotU(scene,cubes){
 	}
 
 	rotHist.push("U");
-
+	
 };
 
 var uDash = function rotUDash(scene,cubes){
@@ -174,7 +176,7 @@ var uDash = function rotUDash(scene,cubes){
 	}
 
 	rotHist.push("U'");
-
+	
 };
 
 var d = function rotD(scene,cubes){
@@ -200,7 +202,7 @@ var d = function rotD(scene,cubes){
 	}
 
 	rotHist.push("D");
-
+	
 };
 
 var dDash = function rotDDash(scene,cubes){
@@ -226,7 +228,7 @@ var dDash = function rotDDash(scene,cubes){
 	}
 
 	rotHist.push("D'");
-
+	
 };
 
 var l = function rotL(scene,cubes){
@@ -252,7 +254,7 @@ var l = function rotL(scene,cubes){
 	}
 
 	rotHist.push("L");
-
+	
 };
 
 var lDash = function rotLDash(scene,cubes){
@@ -278,7 +280,7 @@ var lDash = function rotLDash(scene,cubes){
 	}
 
 	rotHist.push("L'");
-
+	
 };
 
 var r = function rotR(scene,cubes){
@@ -304,7 +306,7 @@ var r = function rotR(scene,cubes){
 	}
 
 	rotHist.push("R");
-
+	
 };
 
 var rDash = function rotRDash(scene,cubes){
@@ -330,7 +332,7 @@ var rDash = function rotRDash(scene,cubes){
 	}
 
 	rotHist.push("R'");
-
+	
 };
 
 var f = function rotF(scene,cubes){
@@ -356,7 +358,7 @@ var f = function rotF(scene,cubes){
 	}
 
 	rotHist.push("F");
-
+	
 };
 
 var fDash = function rotFDash(scene,cubes){
@@ -456,6 +458,9 @@ function autoSolve(){
 				rotations[rotMap[rotHist[i]]](scene,allCubes);
 			}, 100 * (Math.abs(i - rotHist.length) + 1));
 		}
+		setTimeout(function() {
+			rotHist = [];
+		}, 100 * (rotHist.length + 1));
 	}
 
 };
@@ -838,6 +843,20 @@ window.onload = function() {
 	};
 
 	//-------------------------------------------Animations--------------------------------------------------
+
+	document.onkeydown = function(e) {
+		if(e.keyCode == 32){
+			document.querySelector('.sideMenuLeft').classList.add('show');
+			document.querySelector('.sideMenuLeftActive').classList.add('show');
+			document.querySelector('.sideMenuRight').classList.add('show');
+			document.querySelector('.sideMenuRightActive').classList.add('show');
+			document.querySelector('.startClass').classList.add('show');
+			if(!shuffleFlag){
+				shuffle(shuffleList);
+				shuffleFlag = true;
+			}
+		}
+	};
 
 	animate();
 
