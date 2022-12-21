@@ -1,3 +1,10 @@
+/*
+	Primary Javascript 
+	@author: Ishan Dubey
+*/
+
+
+// Importing Three.Js, Three.Js examples and custom libraries.
 import * as THREE from 'three';
 import { TrackballControls } from 'https://threejs.org/examples/jsm/controls/TrackballControls.js';
 import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
@@ -7,14 +14,19 @@ import { LineGeometry } from './modules/LineGeometry.js';
 import { LineSegments2 } from './modules/LineSegments2.js';
 import { LineSegmentsGeometry } from './modules/LineSegmentsGeometry.js';
 
+// Variable declaration
 var scene, camera, renderer, ambientLight, light, controls, rotations, rotMap;
-var solved = true;
 var shuffleFlag = false;
 var [lineMats, allCubes, shuffleList, rotHist] = Array.from({ length: 4 }, () => []);
-// var [lineMats, topLayer, bottomLayer, leftLayer, rightLayer, frontLayer, backLayer] = 
-// 															Array.from({ length: 7 }, () => []);
 
+/*
+	function getCube() - Function to create a single cube.
+	@Input: colorPallete - Colors for different faces of the cube.
+	@output: Returns Mesh, LineMaterial and Line object.
+*/
 function getCube(colorPallete){
+
+	// https://stackoverflow.com/questions/67989801/coloring-faces-of-a-three-js-boxgeometry
 
  	var geometry = new THREE.BoxGeometry( 10, 10, 10 ).toNonIndexed(); 
 
@@ -45,6 +57,8 @@ function getCube(colorPallete){
 
     var mesh = new THREE.Mesh( geometry, material );
 
+    // https://threejs.org/examples/webgl_lines_fat.html
+
     var edges = new THREE.EdgesGeometry( geometry );
 
     var lineMat = new LineMaterial( {
@@ -64,6 +78,12 @@ function getCube(colorPallete){
 
 };
 
+/*
+	function getLayer() - Function get cubes to be rotated.
+	@Input: cubes - List of all the cubes.
+			face - String representing face to be rotated (Ex: Left, Right etc.)
+	@output: Returns list of cubes in the given face.
+*/
 function getLayer(cubes,face){
 
 	var layer = [];
@@ -126,6 +146,11 @@ function getLayer(cubes,face){
 	return layer;
 
 };
+
+/*
+	Rotation functions. Each function is named as per the Rubik's official rotations.
+	@Input: scene object and list of all cubes. 
+*/
 
 var u = function rotU(scene,cubes){
 
@@ -439,6 +464,11 @@ var bDash = function rotBDash(scene,cubes){
 
 };
 
+/*
+	function shuffle() - Function to shuffle the Rubik's.
+	@Input: shuffleList - List of predefined 30 rotations producing maximum possible solutions.
+*/
+
 function shuffle(shuffleList){
 	
 	for (let i = 0; i < shuffleList.length; i++){
@@ -448,6 +478,10 @@ function shuffle(shuffleList){
 	}
 
 };
+
+/*
+	function autoSolve() - Function to solve the Rubik's by reversing rotations.
+*/
 
 function autoSolve(){
 
@@ -498,6 +532,7 @@ window.onload = function() {
 						'#0046ad', //Blue
 						'#ff5800'];  //Orange
 
+	// Creating Rubik's layer by layer and adding each cube to a list.
 
 	//------------------------------------------ Front Layer ---------------------------------------------
 
@@ -799,16 +834,26 @@ window.onload = function() {
 
 	//----------------------------------------EO Back Layer-------------------------------------------------
 
+	//----------------------------------------EO Rubik's creation-------------------------------------------
+
 	//-------------------------------------------Rotations--------------------------------------------------
+
+	// Dictionary mapping rotations.
 
 	rotations = {"U": u, "U'": uDash, "D": d, "D'": dDash, "L": l, "L'": lDash,
 				 "R": r, "R'": rDash, "F": f, "F'": fDash, "B": b, "B'": bDash};
 
+	// List of 30 shuffle moves.
+
 	shuffleList = ["U","F","F","D'","R","R","F","F","U","L","L","U'","R","R","B","B",
 				   "F","D","D","R'","U","U","F","F","L","D'","F","R'","B","B"];
 
+	// Dictionary mapping rotations to their reverse. Used for autosolve.
+
 	rotMap = {"U": "U'", "U'": "U", "D": "D'", "D'": "D", "L": "L'", "L'": "L",
 			  "R": "R'", "R'": "R", "F": "F'", "F'": "F", "B": "B'", "B'": "B"};
+
+	// Binding buttons.
 
 	document.getElementById("U").onclick = function(){ rotations["U"](scene,allCubes);};
 
@@ -844,6 +889,8 @@ window.onload = function() {
 
 	//-------------------------------------------Animations--------------------------------------------------
 
+	// Startup animation.
+
 	document.onkeydown = function(e) {
 		if(e.keyCode == 32){
 			document.querySelector('.sideMenuLeft').classList.add('show');
@@ -855,6 +902,8 @@ window.onload = function() {
 				shuffle(shuffleList);
 				shuffleFlag = true;
 			}
+			controls.enabled = true;
+			controls.enableZoom = false;
 		}
 	};
 
